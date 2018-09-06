@@ -1,7 +1,7 @@
 {
   "lerna": "3.3.0",
   "packages": [
-    "packages/*"
+    "javascript/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

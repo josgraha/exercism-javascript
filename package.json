@@ -3,8 +3,7 @@
   "author": "Joe Graham",
   "private": true,
   "workspaces": [
-    "hello-world",
-    "packages/*"
+    "javascript/*"
   ],
   "repository": {
     "type": "git",

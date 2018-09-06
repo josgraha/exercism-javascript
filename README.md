@@ -7,7 +7,16 @@ Exercises organized in a Monorepo format based on [Yarn Workspaces](https://yarn
 Excercism projects are basically problems with test suites attached.  
 
 ## Setup
-First you need `yarn`
+This repository is organized to support the [Exercism CLI](https://exercism.io/cli-walkthrough).
+
+to set up the workspace, from the project directory enter the following command:
+```sh
+exercism --workspace=$(pwd)
+```
+
+When exercises are fetched they will be created in the `javascript` folder.
+
+To test projects you need`yarn`
 
 `npm install -g yarn`
 
