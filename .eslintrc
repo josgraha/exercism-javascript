@@ -1,17 +1,20 @@
 {
-  "extends": "eslint:recommended",
+  "extends": "airbnb",
   "env": {
     "browser": true,
     "commonjs": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
   "rules": {
-    "no-console": "off",
     "strict": ["error", "global"],
-    "curly": "warn"
+    "curly": "warn",
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
   }
 }
