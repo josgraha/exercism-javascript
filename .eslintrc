@@ -12,9 +12,9 @@
     "sourceType": "module"
   },
   "rules": {
+    "comma-dangle": "off",
     "strict": ["error", "global"],
-    "curly": "warn",
     "import/no-unresolved": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
   }
 }
