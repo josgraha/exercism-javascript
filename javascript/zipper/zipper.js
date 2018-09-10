@@ -1,21 +1,16 @@
-const lastIndex = list => list && list.length > 0 ? list.length - 1 : 0;
+const lastIndex = list => (
+  list && list.length > 0 ? list.length - 1 : 0);
 
 const isNone = val => val === null || typeof val === 'undefined';
 
-const asList = list => isNone(list) ? [] : list;
+const asList = list => (isNone(list) ? [] : list);
 
 const isEmptyList = list => list && list.length <= 0;
 
 const isLastIndex = (lst, index) => (asList(lst).length - 1) === index;
 
-const tail = list => isEmptyList(list) ? [] : list.slice(1);
-
-const head = list => list[0] || null;
-
-const cons = (head, list) => [head, ...asList(list)];
-
-const append = (list, elem) => isNone(elem) ?
-  list : [...asList(list), elem];
+const append = (list, elem) => (isNone(elem) ?
+  list : [...asList(list), elem]);
 
 const dropLast = list => asList(list).slice(0, lastIndex(list));
 
@@ -27,8 +22,9 @@ const setPathValue = (obj, paths, newValue) => {
   const newObj = clone(obj);
   paths.reduce((val, key, index) => {
     if (isLastIndex(paths, index)) {
-      val[key] = newValue;
-      return val;
+      const node = val;
+      node[key] = newValue;
+      return node;
     }
     return val[key];
   }, newObj);
@@ -36,8 +32,21 @@ const setPathValue = (obj, paths, newValue) => {
 };
 
 const pathValue = (obj, paths) => paths.reduce(
-  (val, key) => val[key], obj,
+  (val, key) => val[key], obj
 );
+
+const createContainer = ContainerClass => (tree, paths) => {
+  if (isEmptyList(paths)) {
+    return null;
+  }
+  return new ContainerClass(tree, paths);
+};
+
+const createSetter = withContainer => (ctx, paths, value) => {
+  const tree = setPathValue(ctx,
+    excludeRoot(paths), value);
+  return withContainer(tree, paths);
+};
 
 class Zipper {
   constructor(tree, paths = ['root']) {
@@ -45,7 +54,7 @@ class Zipper {
     this.paths = paths;
   }
 
-  _pushFocusNode(path) {
+  pushFocusNode(path) {
     const paths = append(this.paths, path);
     const nodeVal = pathValue(this.tree, excludeRoot(paths));
     if (isNone(nodeVal)) {
@@ -59,70 +68,57 @@ class Zipper {
   }
 
   left() {
-    return this._pushFocusNode('left');
+    return this.pushFocusNode('left');
   }
 
   right() {
-    return this._pushFocusNode('right');
+    return this.pushFocusNode('right');
   }
 
   value() {
     return pathValue(this.tree,
-      excludeRoot(append(this.paths, 'value')),
+      excludeRoot(append(this.paths, 'value'))
     );
   }
 
   delete() {
-    return setAttribute(this.tree, this.paths, undefined);
+    return Zipper.setAttribute(this.tree, this.paths, undefined);
   }
 
   setValue(value) {
-    return setAttribute(
+    return Zipper.setAttribute(
       this.tree,
       append(this.paths, 'value'),
-      value,
+      value
     );
   }
 
   setLeft(value) {
-    return setAttribute(
+    return Zipper.setAttribute(
       this.tree,
       append(this.paths, 'left'),
-      value,
+      value
     );
   }
 
   setRight(value) {
-    return setAttribute(
+    return Zipper.setAttribute(
       this.tree,
       append(this.paths, 'right'),
-      value,
+      value
     );
   }
 
   asZipper(paths) {
-    return asZipper(this.tree, paths);
+    return Zipper.asZipper(this.tree, paths);
   }
 
   toTree() {
     return this.tree;
   }
 }
-
-const asZipper = (tree, paths) => {
-  if (isEmptyList(paths)) {
-    return null;
-  }
-  return new Zipper(tree, paths);
-};
-
-const setAttribute = (ctx, paths, value) => {
-  const tree = setPathValue(ctx,
-    excludeRoot(paths),
-    value);
-  return asZipper(tree, paths);
-};
-
+Zipper.asZipper = createContainer(Zipper);
+Zipper.setAttribute = createSetter(Zipper.asZipper);
 Zipper.fromTree = t => new Zipper(t);
 
 export default Zipper;
