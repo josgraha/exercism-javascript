@@ -18,7 +18,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('addition', () => {
+  xdescribe('addition', () => {
     xtest('can add two numbers', () => {
       forth.evaluate('1 2 +');
       expect(forth.stack).toEqual([3]);
@@ -35,7 +35,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('subtraction', () => {
+  xdescribe('subtraction', () => {
     xtest('can subtract two numbers', () => {
       forth.evaluate('3 4 -');
       expect(forth.stack).toEqual([-1]);
@@ -52,7 +52,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('multiplication', () => {
+  xdescribe('multiplication', () => {
     xtest('can multiply two numbers', () => {
       forth.evaluate('2 4 *');
       expect(forth.stack).toEqual([8]);
@@ -69,7 +69,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('division', () => {
+  xdescribe('division', () => {
     xtest('can divide two numbers', () => {
       forth.evaluate('12 3 /');
       expect(forth.stack).toEqual([4]);
@@ -95,7 +95,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('combined arithmetic', () => {
+  xdescribe('combined arithmetic', () => {
     xtest('performs addition and subtraction', () => {
       forth.evaluate('1 2 + 4 -');
       expect(forth.stack).toEqual([-1]);
@@ -106,7 +106,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('dup', () => {
+  xdescribe('dup', () => {
     xtest('copies a value on the stack', () => {
       forth.evaluate('1 dup');
       expect(forth.stack).toEqual([1, 1]);
@@ -122,7 +122,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('drop', () => {
+  xdescribe('drop', () => {
     xtest('removes the top value on the stack if it is the only one', () => {
       forth.evaluate('1 drop');
       expect(forth.stack).toEqual([]);
@@ -138,7 +138,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('swap', () => {
+  xdescribe('swap', () => {
     xtest('swaps the top two values on the stack if they are the only ones', () => {
       forth.evaluate('1 2 swap');
       expect(forth.stack).toEqual([2, 1]);
@@ -159,7 +159,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('over', () => {
+  xdescribe('over', () => {
     xtest('copies the second element if there are only two', () => {
       forth.evaluate('1 2 over');
       expect(forth.stack).toEqual([1, 2, 1]);
@@ -180,7 +180,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('user-defined words', () => {
+  xdescribe('user-defined words', () => {
     xtest('can consist of built-in words', () => {
       forth.evaluate(': dup-twice dup dup ;');
       forth.evaluate('1 dup-twice');
@@ -228,7 +228,7 @@ describe('Forth', () => {
     });
   });
 
-  describe('case-insensitivity', () => {
+  xdescribe('case-insensitivity', () => {
     xtest('DUP is case-insensitive', () => {
       forth.evaluate('1 DUP Dup dup');
       expect(forth.stack).toEqual([1, 1, 1, 1]);
