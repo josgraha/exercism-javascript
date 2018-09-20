@@ -12,212 +12,212 @@ describe('Forth', () => {
       forth.evaluate('1 2 3 4 5');
       expect(forth.stack).toEqual([1, 2, 3, 4, 5]);
     });
-    xtest('pushes negative numbers onto the stack', () => {
+    test('pushes negative numbers onto the stack', () => {
       forth.evaluate('-1 -2 -3 -4 -5');
       expect(forth.stack).toEqual([-1, -2, -3, -4, -5]);
     });
   });
 
-  xdescribe('addition', () => {
-    xtest('can add two numbers', () => {
+  describe('addition', () => {
+    test('can add two numbers', () => {
       forth.evaluate('1 2 +');
       expect(forth.stack).toEqual([3]);
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 +');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('+');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('subtraction', () => {
-    xtest('can subtract two numbers', () => {
+  describe('subtraction', () => {
+    test('can subtract two numbers', () => {
       forth.evaluate('3 4 -');
       expect(forth.stack).toEqual([-1]);
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 -');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('-');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('multiplication', () => {
-    xtest('can multiply two numbers', () => {
+  describe('multiplication', () => {
+    test('can multiply two numbers', () => {
       forth.evaluate('2 4 *');
       expect(forth.stack).toEqual([8]);
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 *');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('*');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('division', () => {
-    xtest('can divide two numbers', () => {
+  describe('division', () => {
+    test('can divide two numbers', () => {
       forth.evaluate('12 3 /');
       expect(forth.stack).toEqual([4]);
     });
-    xtest('performs integer division', () => {
+    test('performs integer division', () => {
       forth.evaluate('8 3 /');
       expect(forth.stack).toEqual([2]);
     });
-    xtest('errors if dividing by zero', () => {
+    test('errors if dividing by zero', () => {
       expect(() => {
         forth.evaluate('4 0 /');
       }).toThrow(new Error('Division by zero'));
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 /');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('/');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('combined arithmetic', () => {
-    xtest('performs addition and subtraction', () => {
+  describe('combined arithmetic', () => {
+    test('performs addition and subtraction', () => {
       forth.evaluate('1 2 + 4 -');
       expect(forth.stack).toEqual([-1]);
     });
-    xtest('performs multiplication and division', () => {
+    test('performs multiplication and division', () => {
       forth.evaluate('2 4 * 3 /');
       expect(forth.stack).toEqual([2]);
     });
   });
 
-  xdescribe('dup', () => {
-    xtest('copies a value on the stack', () => {
+  describe('dup', () => {
+    test('copies a value on the stack', () => {
       forth.evaluate('1 dup');
       expect(forth.stack).toEqual([1, 1]);
     });
-    xtest('copies the top value on the stack', () => {
+    test('copies the top value on the stack', () => {
       forth.evaluate('1 2 dup');
       expect(forth.stack).toEqual([1, 2, 2]);
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('dup');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('drop', () => {
-    xtest('removes the top value on the stack if it is the only one', () => {
+  describe('drop', () => {
+    test('removes the top value on the stack if it is the only one', () => {
       forth.evaluate('1 drop');
       expect(forth.stack).toEqual([]);
     });
-    xtest('removes the top value on the stack if it is not the only one', () => {
+    test('removes the top value on the stack if it is not the only one', () => {
       forth.evaluate('1 2 drop');
       expect(forth.stack).toEqual([1]);
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('drop');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('swap', () => {
-    xtest('swaps the top two values on the stack if they are the only ones', () => {
+  describe('swap', () => {
+    test('swaps the top two values on the stack if they are the only ones', () => {
       forth.evaluate('1 2 swap');
       expect(forth.stack).toEqual([2, 1]);
     });
-    xtest('swaps the top two values on the stack if they are not the only ones', () => {
+    test('swaps the top two values on the stack if they are not the only ones', () => {
       forth.evaluate('1 2 3 swap');
       expect(forth.stack).toEqual([1, 3, 2]);
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 swap');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('swap');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('over', () => {
-    xtest('copies the second element if there are only two', () => {
+  describe('over', () => {
+    test('copies the second element if there are only two', () => {
       forth.evaluate('1 2 over');
       expect(forth.stack).toEqual([1, 2, 1]);
     });
-    xtest('copies the second element if there are more than two', () => {
+    test('copies the second element if there are more than two', () => {
       forth.evaluate('1 2 3 over');
       expect(forth.stack).toEqual([1, 2, 3, 2]);
     });
-    xtest('errors if there is only one value on the stack', () => {
+    test('errors if there is only one value on the stack', () => {
       expect(() => {
         forth.evaluate('1 over');
       }).toThrow(new Error('Stack empty'));
     });
-    xtest('errors if there is nothing on the stack', () => {
+    test('errors if there is nothing on the stack', () => {
       expect(() => {
         forth.evaluate('over');
       }).toThrow(new Error('Stack empty'));
     });
   });
 
-  xdescribe('user-defined words', () => {
-    xtest('can consist of built-in words', () => {
+  describe('user-defined words', () => {
+    test('can consist of built-in words', () => {
       forth.evaluate(': dup-twice dup dup ;');
       forth.evaluate('1 dup-twice');
       expect(forth.stack).toEqual([1, 1, 1]);
     });
-    xtest('execute in the right order', () => {
+    test('execute in the right order', () => {
       forth.evaluate(': countup 1 2 3 ;');
       forth.evaluate('countup');
       expect(forth.stack).toEqual([1, 2, 3]);
     });
-    xtest('can override other user-defined words', () => {
+    test('can override other user-defined words', () => {
       forth.evaluate(': foo dup ;');
       forth.evaluate(': foo dup dup ;');
-      forth.evaluate( '1 foo');
+      forth.evaluate('1 foo');
       expect(forth.stack).toEqual([1, 1, 1]);
     });
-    xtest('can override built-in words', () => {
+    test('can override built-in words', () => {
       forth.evaluate(': swap dup ;');
       forth.evaluate('1 swap');
       expect(forth.stack).toEqual([1, 1]);
     });
-    xtest('can override built-in operators', () => {
+    test('can override built-in operators', () => {
       forth.evaluate(': + * ;');
       forth.evaluate('3 4 +');
       expect(forth.stack).toEqual([12]);
     });
-    xtest('cannot redefine numbers', () => {
+    test('cannot redefine numbers', () => {
       expect(() => {
         forth.evaluate(': 1 2 ;');
       }).toThrow(new Error('Invalid definition'));
     });
-    xtest('errors if executing a non-existent word', () => {
+    test('errors if executing a non-existent word', () => {
       expect(() => {
         forth.evaluate('foo');
       }).toThrow(new Error('Unknown command'));
     });
-    xtest('only defines words for current instance', () => {
+    test('only defines words for current instance', () => {
       const first = new Forth();
       const second = new Forth();
       first.evaluate(': + - ;');
@@ -228,29 +228,29 @@ describe('Forth', () => {
     });
   });
 
-  xdescribe('case-insensitivity', () => {
-    xtest('DUP is case-insensitive', () => {
+  describe('case-insensitivity', () => {
+    test('DUP is case-insensitive', () => {
       forth.evaluate('1 DUP Dup dup');
       expect(forth.stack).toEqual([1, 1, 1, 1]);
     });
-    xtest('DROP is case-insensitive', () => {
+    test('DROP is case-insensitive', () => {
       forth.evaluate('1 2 3 4 DROP Drop drop');
       expect(forth.stack).toEqual([1]);
     });
-    xtest('SWAP is case-insensitive', () => {
+    test('SWAP is case-insensitive', () => {
       forth.evaluate('1 2 SWAP 3 Swap 4 swap');
       expect(forth.stack).toEqual([2, 3, 4, 1]);
     });
-    xtest('OVER is case-insensitive', () => {
+    test('OVER is case-insensitive', () => {
       forth.evaluate('1 2 OVER Over over');
       expect(forth.stack).toEqual([1, 2, 1, 2, 1]);
     });
-    xtest('user-defined words are case-insensitive', () => {
+    test('user-defined words are case-insensitive', () => {
       forth.evaluate(': foo dup ;');
       forth.evaluate('1 FOO Foo foo');
       expect(forth.stack).toEqual([1, 1, 1, 1]);
     });
-    xtest('definitions are case-insensitive', () => {
+    test('definitions are case-insensitive', () => {
       forth.evaluate(': SWAP DUP Dup dup ;');
       forth.evaluate('1 swap');
       expect(forth.stack).toEqual([1, 1, 1, 1]);

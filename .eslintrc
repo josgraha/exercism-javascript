@@ -12,6 +12,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "arrow-parens": "off",
     "comma-dangle": "off",
     "strict": ["error", "global"],
     "import/no-unresolved": "off",
